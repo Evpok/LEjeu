@@ -1,0 +1,24 @@
+{
+  "name": "leman-dragon",
+  "version": "0.1.0",
+  "description": "Adventure game",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "phpunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Evpok/LEjeu.git"
+  },
+  "author": "kylekatarnls",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Evpok/LEjeu/issues"
+  },
+  "homepage": "https://github.com/Evpok/LEjeu#readme"
+}

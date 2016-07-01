@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        title= title
+        block headassets
+            :minify
+                link(rel="stylesheet" href="css/lib/bootstrap.css")
+                link(rel="stylesheet" href="css/lib/bootstrap-theme.css")
+                link(rel="stylesheet" href="css/app.styl")
+                script(src="js/lib/react.js")
+                script(src="js/lib/react-dom.js")
+                //- script(src="js/lib/browser.js")
+        link(rel="icon" type="image/x-icon" href=$view['assets']->getUrl('favicon.ico'))
+    body
+        #main
+            h1= title
+            block body
+            block bodyassets
+                :minify
+                    script(src="js/lib/bootstrap.js")
+                    script(src="js/app.jsx" type="text/babel")
+        include ../modules/piwik
