@@ -40,10 +40,14 @@ class ViewSettings
         $pug = $container->get('templating.engine.pug');
         $pug->setOption('singleQuote', false);
         if ($container->getParameter('kernel.environment') === 'dev') {
-            $pug->setOption('cache', false);
-            Minify::devMode();
+            $pug
+                ->setOption('cache', false)
+                ->setCustomOption('environnement', 'dev')
+            ;
         }
-        Minify::setAssetDirectory(__DIR__ . '/../Resources/assets');
-        Minify::setOutputDirectory(__DIR__ . '/../../../web');
+        $pug->setCustomOptions([
+            'assetDirectory' => __DIR__ . '/../Resources/assets',
+            'outputDirectory' => __DIR__ . '/../../../web',
+        ]);
     }
 }

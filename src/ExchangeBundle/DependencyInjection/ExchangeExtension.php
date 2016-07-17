@@ -1,6 +1,6 @@
 <?php
 
-namespace ExchangeBundle\ExchangeBundle\DependencyInjection;
+namespace ExchangeBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

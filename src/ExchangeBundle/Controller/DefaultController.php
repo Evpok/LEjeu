@@ -1,6 +1,6 @@
 <?php
 
-namespace ExchangeBundle\ExchangeBundle\Controller;
+namespace ExchangeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

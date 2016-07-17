@@ -1,6 +1,6 @@
 <?php
 
-namespace ExchangeBundle\ExchangeBundle\Tests\Controller;
+namespace ExchangeBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

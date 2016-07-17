@@ -6,7 +6,13 @@
   "directories": {
     "test": "tests"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-preset-react": "^6.11.1",
+    "stylus": "^0.54.5",
+    "uglify-js": "^2.6.4"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "phpunit"

@@ -1,6 +1,6 @@
 <?php
 
-namespace ExchangeBundle\ExchangeBundle;
+namespace ExchangeBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

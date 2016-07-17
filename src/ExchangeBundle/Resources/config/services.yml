@@ -1,4 +1,4 @@
 services:
 #    exchange.example:
-#        class: ExchangeBundle\ExchangeBundle\Example
+#        class: ExchangeBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]

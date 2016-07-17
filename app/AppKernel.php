@@ -17,7 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new AppBundle\AppBundle(),
-            new ExchangeBundle\ExchangeBundle\ExchangeBundle(),
+            new ExchangeBundle\ExchangeBundle(),
             // new Symfony\Bundle\AsseticBundle\AsseticBundle(),
         ];
 
