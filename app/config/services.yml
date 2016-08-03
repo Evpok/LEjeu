@@ -6,7 +6,7 @@ parameters:
 services:
     templating.engine.pug:
         class: Pug\PugSymfonyEngine
-        arguments: ["@kernel", "@templating.helper.assets", "@templating.helper.router"]
+        arguments: ["@kernel"]
 
     view.settings:
         class: AppBundle\ViewSettings\ViewSettings

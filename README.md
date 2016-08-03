@@ -3,7 +3,12 @@ LemanDragon
 
 ## Installation
 
-First, install **composer** if you haven't already: https://getcomposer.org/doc/00-intro.md
+First, install the following programs if you haven't already, else upgrade them to the latest version:
+ - **git**
+ - **php**: https://php.net/
+ - **composer**: https://getcomposer.org/doc/00-intro.md
+ - **node.js**: https://nodejs.com/
+ - **phpunit**: https://phpunit.de/
 
 Then open a command-line in your working directory:
 
@@ -11,8 +16,6 @@ Then open a command-line in your working directory:
 git clone https://github.com/Evpok/LEjeu.git
 cd LEjeu
 composer install
-npm install uglify-js -g
-npm install stylus -g
 ```
 
 Edit your **php.ini** file and add or uncomment ```extension=gettext.so``` (or ```extension=php_gettext.dll``` on Windows).
@@ -48,7 +51,7 @@ chmod -R +w {var,web/css,web/img,web/js}
 php bin/console server:run
 ```
 
-You can now test the app: http://127.0.0.1:8000
+You can now test the app: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 If you change some text, stop the server with CONTROL-C and re-run it.
 
@@ -56,8 +59,8 @@ If you change some text, stop the server with CONTROL-C and re-run it.
 
 All the texts and the code are written in english.
 
-To translate some text, you can use Poedit (or any gettext software) with the .po files in **src/AppBundle/Resources/translations**.
+To translate some text, you can use **Poedit** (or any gettext software) with the *.po* files in **src/AppBundle/Resources/translations**.
 
-Poedit also has an extract function wich use gettext and can scroll a directory to find gettext functions: ```_()```,  ```gettext()```,  ```ngettext()```.
+**Poedit** also has an extract function wich use gettext and can scroll a directory to find gettext functions: ```_()```,  ```gettext()```,  ```ngettext()```.
 
-Set your extractor to scroll Pug (Jade) files. As gettext does not support this language, you can parse *.pug,*.jade with the language Python wich is close enough in its structure.
+Set your extractor to scroll Pug (Jade) files. As gettext does not support this language, you can parse \*.pug, \*.jade with the language **Python** wich is close enough in its structure.

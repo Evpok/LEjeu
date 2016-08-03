@@ -1,0 +1,7 @@
+aside
+    each language, code in languages
+        | &nbsp;
+        if $code === $app->getSession()->get('language')
+            b=language
+        else
+            a(href="/language/#{code}")=language

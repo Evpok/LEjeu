@@ -11,12 +11,22 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         textdomain("base");
 
         return $this->render('AppBundle::index.pug', [
             'title' => _("Leman Dragon"),
         ]);
+    }
+
+    /**
+     * @Route("/language/{language}", name="language")
+     */
+    public function languageAction($language, Request $request)
+    {
+        $request->getSession()->set('language', $language);
+
+        return $this->redirectToRoute('homepage');
     }
 }

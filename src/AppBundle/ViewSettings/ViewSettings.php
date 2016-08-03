@@ -2,52 +2,64 @@
 
 namespace AppBundle\ViewSettings;
 
-use Pug\Filter\Minify;
+use AppKernel;
+use Pug\PugSymfonyEngine;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+
+include_once __DIR__ . '/../../../vendor/pug-php/pug-assets/src/Pug/Assets.php';
 
 class ViewSettings
 {
     protected $kernel;
+    protected $locales = [
+        'fr_FR' => 'Français',
+        'en_US' => 'English',
+    ];
 
-    public function __construct($kernel)
+    public function __construct(AppKernel $kernel)
     {
         $this->kernel = $kernel;
     }
 
-    public function settings()
+    protected function getDefaultLocale()
     {
-        $this->localeSetting();
-        $this->minifySetting();
+        $defaultLocale = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+        return isset($this->locales[$defaultLocale])
+            ? $defaultLocale
+            : (substr($defaultLocale, 0, 2) === 'fr'
+                ? 'fr_FR'
+                : 'en_US'
+            );
     }
 
-    protected function localeSetting()
+    protected function registerTextDomains(...$domains)
     {
-        $session = new Session();
-        $language = $session->get('language', 'fr_FR');
-        putenv('LC_ALL=' . $language);
-        setlocale(LC_ALL, $language);
-        foreach ([
-            'base',
-        ] as $domain) {
+        foreach ($domains as $domain) {
             bindtextdomain($domain, __DIR__ . '/../Resources/translations');
         }
     }
 
-    protected function minifySetting()
+    public function settings()
     {
-        $container = $this->kernel->getContainer();
-        $pug = $container->get('templating.engine.pug');
-        $pug->setOption('singleQuote', false);
-        if ($container->getParameter('kernel.environment') === 'dev') {
-            $pug
-                ->setOption('cache', false)
-                ->setCustomOption('environnement', 'dev')
-            ;
+        $services = $this->kernel->getContainer();
+        $this->registerGlobalVariables($services->get('templating.engine.pug'));
+        $session = $services->get('session');
+        $language = $session->get('language');
+        if (!$language) {
+            $session->set('language', $language = $this->getDefaultLocale());
         }
-        $pug->setCustomOptions([
-            'assetDirectory' => __DIR__ . '/../Resources/assets',
-            'outputDirectory' => __DIR__ . '/../../../web',
-        ]);
+        putenv('LC_ALL=' . $language);
+        putenv('LANG=' . $language);
+        putenv('LANGUAGE=' . $language);
+        setlocale(LC_ALL, $language);
+        $this->registerTextDomains('base');
+    }
+
+    protected function registerGlobalVariables(PugSymfonyEngine $pug)
+    {
+        $pug->getEngine()->share('languages', $this->locales);
     }
 }

@@ -1,0 +1,13 @@
+/** @jsx dom */
+var dom = React.createElement;
+
+var foo = 'bar';
+
+ReactDOM.render(
+    ::`
+    for i in range(1, 6)
+        .row
+            for i in range(1, 10)
+                .tile`,
+    document.getElementById('map')
+);
