@@ -4,4 +4,4 @@ aside
         if $code === $app->getSession()->get('language')
             b=language
         else
-            a(href="/language/#{code}")=language
+            a(href=path('language', [ 'language' => $code ]))=language
