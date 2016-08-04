@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6f7efa93aa374a09d7dabd0826f923d7",
-    "content-hash": "520c99cf37c6a363573250c11c1da063",
+    "hash": "587144738b88d0026abafba82d462d96",
+    "content-hash": "7569ac16b84e04024dfe3f224973d1fa",
     "packages": [
         {
             "name": "cboden/ratchet",
@@ -2202,16 +2202,16 @@
         },
         {
             "name": "pug-php/pug-assets",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pug-php/pug-assets.git",
-                "reference": "ad2887e6d6b56b2a7185ce476bfd4fdec05d1952"
+                "reference": "0591e1aed792c9fc64bb9ac338fddf4d40baf67a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pug-php/pug-assets/zipball/ad2887e6d6b56b2a7185ce476bfd4fdec05d1952",
-                "reference": "ad2887e6d6b56b2a7185ce476bfd4fdec05d1952",
+                "url": "https://api.github.com/repos/pug-php/pug-assets/zipball/0591e1aed792c9fc64bb9ac338fddf4d40baf67a",
+                "reference": "0591e1aed792c9fc64bb9ac338fddf4d40baf67a",
                 "shasum": ""
             },
             "require": {
@@ -2219,7 +2219,7 @@
                 "pug-php/pug-filter-coffee-script": "^1.2",
                 "pug-php/pug-filter-markdown": "^1.1",
                 "pug-php/pug-filter-stylus": "^2.0",
-                "pug-php/pug-minify": "^1.0"
+                "pug-php/pug-minify": "^1.0.1"
             },
             "type": "library",
             "autoload": {
@@ -2238,7 +2238,7 @@
                 }
             ],
             "description": "Pug template assets manager",
-            "time": "2016-07-29 19:55:27"
+            "time": "2016-08-02 16:08:00"
         },
         {
             "name": "pug-php/pug-filter-coffee-script",
@@ -2371,16 +2371,16 @@
         },
         {
             "name": "pug-php/pug-minify",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pug-php/pug-minify.git",
-                "reference": "835cd6a951a48002ee1410e3884b49412fdf2836"
+                "reference": "cc16a189e17f5c56056bc72b292c66ba7a8565fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pug-php/pug-minify/zipball/835cd6a951a48002ee1410e3884b49412fdf2836",
-                "reference": "835cd6a951a48002ee1410e3884b49412fdf2836",
+                "url": "https://api.github.com/repos/pug-php/pug-minify/zipball/cc16a189e17f5c56056bc72b292c66ba7a8565fb",
+                "reference": "cc16a189e17f5c56056bc72b292c66ba7a8565fb",
                 "shasum": ""
             },
             "require": {
@@ -2410,25 +2410,25 @@
                 }
             ],
             "description": "One keyword to minify them all (the assets: JS, CSS, Stylus, minify, Coffee, React) in your pug-php template.",
-            "time": "2016-07-30 15:34:15"
+            "time": "2016-08-03 15:45:20"
         },
         {
             "name": "pug-php/pug-symfony",
-            "version": "2.0.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pug-php/pug-symfony.git",
-                "reference": "b1c98fa84c5b28a2a416ea0d3554f632726b518d"
+                "reference": "a163fda0a6de43684ab9aefacb2fb212c6b7743a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pug-php/pug-symfony/zipball/b1c98fa84c5b28a2a416ea0d3554f632726b518d",
-                "reference": "b1c98fa84c5b28a2a416ea0d3554f632726b518d",
+                "url": "https://api.github.com/repos/pug-php/pug-symfony/zipball/a163fda0a6de43684ab9aefacb2fb212c6b7743a",
+                "reference": "a163fda0a6de43684ab9aefacb2fb212c6b7743a",
                 "shasum": ""
             },
             "require": {
-                "pug-php/pug": "^2.0",
-                "pug-php/pug-assets": "^1.0"
+                "pug-php/pug": "^2.1.3",
+                "pug-php/pug-assets": "^1.0.1"
             },
             "replace": {
                 "kylekatarnls/jade-symfony": "self.version"
@@ -2451,7 +2451,7 @@
                 }
             ],
             "description": "Pug template engine for Symfony",
-            "time": "2016-07-29 20:20:45"
+            "time": "2016-08-02 16:01:56"
         },
         {
             "name": "react/event-loop",
@@ -3636,7 +3636,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.9"
+        "php": ">=7.0.0"
     },
     "platform-dev": [],
     "platform-overrides": {

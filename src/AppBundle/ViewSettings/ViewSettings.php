@@ -39,6 +39,7 @@ class ViewSettings
     {
         foreach ($domains as $domain) {
             bindtextdomain($domain, __DIR__ . '/../Resources/translations');
+            bind_textdomain_codeset($domain, 'UTF-8');
         }
     }
 
