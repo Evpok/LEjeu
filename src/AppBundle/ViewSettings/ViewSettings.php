@@ -4,11 +4,6 @@ namespace AppBundle\ViewSettings;
 
 use AppKernel;
 use Pug\PugSymfonyEngine;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-
-include_once __DIR__ . '/../../../vendor/pug-php/pug-assets/src/Pug/Assets.php';
 
 class ViewSettings
 {
@@ -35,9 +30,9 @@ class ViewSettings
             );
     }
 
-    protected function registerTextDomains(...$domains)
+    protected function registerTextDomains()
     {
-        foreach ($domains as $domain) {
+        foreach (func_get_args() as $domain) {
             bindtextdomain($domain, __DIR__ . '/../Resources/translations');
             bind_textdomain_codeset($domain, 'UTF-8');
         }
