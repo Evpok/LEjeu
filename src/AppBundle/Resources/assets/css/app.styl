@@ -14,12 +14,18 @@ aside
     background #f8f8f8
 
 #map
+    overflow hidden
+    .map
+        margin auto
+        padding 1px 1px 32px 1px
     .tile
-        width 50px
-        height 50px
-        box-shadow inset 1px 1px 3px rgba(0, 0, 0, 0.2)
+        margin -1px -1px -16px -1px
         display block
         float left
 
-    .row
+    .map-row
         clear left
+
+@media screen and (max-width: 640px)
+    #map
+        max-height 300px

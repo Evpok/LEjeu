@@ -1,3 +1,0 @@
-exchange_homepage:
-    path:     /
-    defaults: { _controller: ExchangeBundle:Default:index }

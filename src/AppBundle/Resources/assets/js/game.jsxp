@@ -1,14 +1,177 @@
 /** @jsx dom */
 var dom = React.createElement;
 
-var foo = 'bar';
+var mapHandler = document.getElementById('map');
+
+var Tile = React.createClass({
+    big: [109, 192, 193, 194, 195, 196, 197, 198, 199, 210, 211, 212, 213, 214, 215, 216, 217, 218],
+    gif: [220],
+    getStateFromImg: function (img) {
+        var left = Math.floor((66 - img.width) / 2) - 1;
+        return {
+            width: img.width,
+            height: img.height,
+            margin: (32 - img.height) + 'px ' + left + 'px -16px ' + left + 'px'
+        };
+    },
+    getInitialState: function () {
+        var state = {
+            width: 66,
+            height: 33,
+            margin: '-1px -1px -16px -1px'
+        };
+
+        if (this.big.indexOf(this.props.id) === -1) {
+            return state;
+        }
+
+        var img = new Image();
+        img.src = this.getSrc();
+        if (img.width) {
+            return this.getStateFromImg(img);
+        }
+
+        img.onload = function () {
+            this.setState(this.getStateFromImg(img));
+        }.bind(this);
+
+        return state;
+    },
+    getSrc: function () {
+        return 'http://www.holowar.com/news/map/' + (
+            this.props.rotate
+                ? 'rotation_' + this.props.rotate + '.php?id=' + this.props.id
+                : 'images/tuiles/tuile_' + this.props.id
+            ) + '.' + (~this.gif.indexOf(this.props.id) ? 'gif' : 'png');
+    },
+    render: function() {
+        return <img className="tile" src={this.getSrc()} width={this.state.width} height={this.state.height} style={{ margin: this.state.margin }} />;
+    }
+});
+
+var Row = React.createClass({
+    getIndent: function () {
+        return (this.props.indent * 32) + 'px';
+    },
+    render: function() {
+        var tiles = [];
+        for (var i = 0; i < this.props.width; i++) {
+            var id = this.props.tiles[i] || '';
+            var rotate = id.substr(0, 1);
+            if ((/\d/).test(rotate)) {
+                rotate = '';
+            } else {
+                id = id.substr(1);
+            }
+            id = (id | 0) || 71;
+            tiles.push(<Tile key={i} id={id} rotate={rotate} />);
+        }
+
+        return <div className="map-row" style={{ marginLeft: this.getIndent() }}>
+            {tiles}
+        </div>;
+    }
+});
+
+var Map = React.createClass({
+    loadMap: function () {
+        $.get('/api/map/1', function(data) {
+            this.setState(data);
+        }.bind(this));
+    },
+    getInitialState: function () {
+        return $.extend({
+            currentScale: 0
+        }, this.props);
+    },
+    componentDidMount: function() {
+        this.loadMap();
+    },
+    getWidth: function (tiles) {
+        return (tiles | 0) * 32 + 2;
+    },
+    getTiles: function (alphabet) {
+        if (!this.state.tiles || this.state.tiles.length < 3) {
+            return [];
+        }
+        alphabet = alphabet || '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
+        var input = this.state.tiles;
+        var tiles = [], buffer = 0, bits = 0, i = 0;
+        var alphabetBits = Math.log2(alphabet.length);
+        var consume = function (i) {
+            var int = alphabet.indexOf(input.charAt(i));
+            buffer |= (int << bits);
+            bits += alphabetBits;
+        };
+        var getBits = function (length) {
+            var int = buffer & (1 << length) - 1;
+            bits -= length;
+            buffer >>= length;
+
+            return int;
+        };
+        while (i < 3) {
+            consume(i++);
+        }
+        var protocol = getBits(2);
+        var rotateBits = getBits(6);
+        var idBits = getBits(8);
+        if (protocol) {
+            throw new Error('Protocol 0 expected, found: ' + protocol);
+        }
+        var rotates = ['', 'v', 'h', 'r'];
+        while (i < input.length) {
+            consume(i++);
+            while (bits >= rotateBits + idBits) {
+                tiles.push(rotates[getBits(rotateBits)] + (getBits(idBits) || ''));
+            }
+        }
+
+        return tiles;
+    },
+    render: function() {
+        var rows = [], index = 0, width, row, i, indent;
+        var shortSide = Math.min(this.state.height, this.state.width);
+        var tiles = this.getTiles();
+        for (i = 0; i < this.state.width; i++) {
+            width = Math.min(shortSide, i + 1);
+            row = tiles.slice(index, index += width);
+            indent = this.state.width - i - 1;
+            rows.push(<Row key={i} width={width} tiles={row} indent={indent} />);
+        }
+        for (i = this.state.height - 1; i; i--) {
+            width = Math.min(shortSide, i);
+            row = tiles.slice(index, index += width);
+            indent = this.state.height - i;
+            rows.push(<Row key={indent + this.state.width} width={width} tiles={row} indent={indent} />);
+        }
+        width = this.getWidth(this.state.height + this.state.width);
+        var style = {};
+        if (width > 2) {
+            var screenWidth = Math.min(1000, Math.max(320, document.body.offsetWidth));
+            this.state.currentScale = Math.min(this.state.scale[1], Math.max(this.state.scale[0], this.state.currentScale || (Math.round(screenWidth * 10 / width) / 10)));
+            var scale = 'scale(' + this.state.currentScale + ')';
+            if (width > screenWidth) {
+                style.marginLeft = Math.floor((screenWidth - width) / 2) + 'px';
+            }
+            if (this.state.currentScale < 1) {
+                style.marginTop = Math.floor(width * (this.state.currentScale - 1) / 4) + 'px';
+            }
+            width += 'px';
+            $.extend(style, {
+                width: width,
+                transform: scale
+            });
+        }
+
+        return <div className="map" style={style}>
+            {this.state.name}
+            {rows}
+        </div>;
+    }
+});
 
 ReactDOM.render(
-    ::`
-    div
-        for i in range(1, 6)
-            .row
-                for i in range(1, 10)
-                    .tile`,
-    document.getElementById('map')
+    <Map name="Leman" scale={[0.4, 2]} />,
+    mapHandler
 );

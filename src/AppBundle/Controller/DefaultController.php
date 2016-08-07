@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="homepage", methods="GET")
      */
     public function indexAction()
     {
@@ -21,7 +21,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/language/{language}", name="language")
+     * @Route("/language/{language}", name="language", methods="GET")
      */
     public function languageAction($language, Request $request)
     {

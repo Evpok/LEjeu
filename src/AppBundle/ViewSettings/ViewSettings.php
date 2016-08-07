@@ -4,6 +4,7 @@ namespace AppBundle\ViewSettings;
 
 use AppKernel;
 use Pug\PugSymfonyEngine;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ViewSettings
 {
@@ -40,8 +41,9 @@ class ViewSettings
 
     public function settings()
     {
+        clearstatcache();
         $services = $this->kernel->getContainer();
-        $this->registerGlobalVariables($services->get('templating.engine.pug'));
+        $this->registerGlobalVariables($services->get('templating.engine.pug'), $services);
         $session = $services->get('session');
         $language = $session->get('language');
         if (!$language) {
@@ -54,8 +56,10 @@ class ViewSettings
         $this->registerTextDomains('base');
     }
 
-    protected function registerGlobalVariables(PugSymfonyEngine $pug)
+    protected function registerGlobalVariables(PugSymfonyEngine $pug, ContainerInterface $services)
     {
-        $pug->getEngine()->share('languages', $this->locales);
+        $pug->getEngine()->share([
+            'languages' => $this->locales,
+        ]);
     }
 }

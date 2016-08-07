@@ -1,5 +1,6 @@
 exchange:
-    resource: "@ExchangeBundle/Resources/config/routing.yml"
+    resource: "@ExchangeBundle/Controller/"
+    type:     annotation
     prefix:   /api/
 
 app:
